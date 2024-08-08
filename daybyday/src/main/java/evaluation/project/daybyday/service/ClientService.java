@@ -6,28 +6,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import evaluation.project.daybyday.util.TaskResponseDTO;
+import evaluation.project.daybyday.util.ClientResponseDTO;
 
 @Service
-public class TaskService {
+public class ClientService {
     
     @Value("${api.base.url}")
     private String apiBaseUrl;
 
     private final RestTemplate restTemplate;
 
-    public TaskService(RestTemplate restTemplate) {
+    public ClientService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public TaskResponseDTO getTasks(int page) {
+    public ClientResponseDTO getClients(int page) {
         @SuppressWarnings("deprecation")
         String url = UriComponentsBuilder.fromHttpUrl(apiBaseUrl)
-                                       .path("/task")
+                                       .path("/client")
                                        .queryParam("page", page)
                                        .toUriString();
-
-        ResponseEntity<TaskResponseDTO> response = restTemplate.getForEntity(url, TaskResponseDTO.class);
+        ResponseEntity<ClientResponseDTO> response = restTemplate.getForEntity(url, ClientResponseDTO.class);
         return response.getBody();
     }
+
 }

@@ -4,7 +4,7 @@
       layout:decorate="~{layout/auth-header}">
 
 <head>
-    <title>Task</title>
+    <title>Client</title>
     <style>
 
         main {
@@ -13,10 +13,10 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
         }
 
         table {
+            position: relative;
             width: 100%;
             max-height: 90%;
             border-collapse: collapse;
@@ -85,26 +85,24 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Titre</th>
-                        <th>Client ID</th>
-                        <th>Date Limite</th>
-                        <!-- <th>Actions</th> -->
+                        <th>Address</th>
+                        <th>city</th>
+                        <th>Company</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="task : ${data}">
-                        <td class="td-titre" th:text="${task.title}"></td>
-                        <td class="td-client" th:text="${task.clientId}"></td>
-                        <td class="td-deadline" th:text="${task.deadline}"></td>
-                        <!-- <td class="td-action"></td> -->
+                    <tr th:each="client : ${data}">
+                        <td th:text="${client.address}"></td>
+                        <td th:text="${client.city}"></td>
+                        <td th:text="${client.companyName}"></td>
                     </tr>
                 </tbody>
             </table>
     
             <div class="pagination">
-                <a th:href="@{${'/task?page=' + prevPage}}" th:if="${prevPage != null}">prev</a>
+                <a th:href="@{${'/client?page=' + prevPage}}" th:if="${prevPage != null}">prev</a>
                 <span th:text="${currentPage}"></span>
-                <a th:href="@{${'/task?page=' + nextPage}}" th:if="${nextPage != null}">next</a>
+                <a th:href="@{${'/client?page=' + nextPage}}" th:if="${nextPage != null}">next</a>
             </div>         
             
         </main>

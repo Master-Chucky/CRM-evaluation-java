@@ -52,9 +52,8 @@
         <main>
 
             <div class="card" th:if="${nbClients != null}">
-                <h4>Clients</h4>
+                <h4>Clients <a th:href="@{/client}">-></a></h4>
                 <p th:text="${nbClients}">0</p>
-                <a th:href="@{/task}"></a>
             </div>
 
             <div class="card" th:if="${nbProjects != null}">

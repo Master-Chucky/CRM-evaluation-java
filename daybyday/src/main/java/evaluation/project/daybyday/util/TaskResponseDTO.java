@@ -1,7 +1,9 @@
-package evaluation.project.daybyday.dto;
+package evaluation.project.daybyday.util;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import evaluation.project.daybyday.dto.TaskDTO;
 import lombok.Data;
 
 @Data
@@ -11,7 +13,7 @@ public class TaskResponseDTO {
     private int currentPage;
 
     @JsonProperty("data")
-    private List<TaskDTO> tasks;
+    private List<TaskDTO> data;
 
     @JsonProperty("first_page_url")
     private String firstPageUrl;

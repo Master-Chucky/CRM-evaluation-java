@@ -1,7 +1,7 @@
 package evaluation.project.daybyday.controller;
 
-import evaluation.project.daybyday.dto.TaskResponseDTO;
 import evaluation.project.daybyday.service.TaskService;
+import evaluation.project.daybyday.util.TaskResponseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,7 @@ public class TaskController {
     public String getTasks(@RequestParam(defaultValue = "1") int page, Model model) {
         TaskResponseDTO taskResponse = taskService.getTasks(page);
 
-        model.addAttribute("tasks", taskResponse.getTasks());  
+        model.addAttribute("data", taskResponse.getData());  
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", taskResponse.getLastPage());
         model.addAttribute("totalTasks", taskResponse.getTotal());
