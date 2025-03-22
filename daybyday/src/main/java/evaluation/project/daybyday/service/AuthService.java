@@ -21,7 +21,7 @@ public class AuthService {
     }
 
     public String authenticate(String email, String password) {
-        String url = "http://ton-api-laravel.com/api/authenticate";
+        String url = "http://";
         
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put("email", email);

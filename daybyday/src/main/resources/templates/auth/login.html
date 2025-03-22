@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>Liste des Ventes</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <form class="formulaire" th:action="@{/clients/search}" th:object="${searchData}" method="post">
+            <div class="element">
+                <label for="startDate">Start :</label>
+                <input type="date" th:field="*{startDate}">
+            </div>
+            <div class="element">
+                <label for="endDate">End :</label>
+                <input type="date" th:field="*{endDate}">
+            </div>
+            <div class="element">
+                <button type="submit">rechercher</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

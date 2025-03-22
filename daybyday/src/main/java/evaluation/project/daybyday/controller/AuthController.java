@@ -15,9 +15,10 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @RequestMapping("/login")
-    public String login(String email, String password) {
+    @RequestMapping("/process-login")
+    public String processLogin(String email, String password) {
         return authService.authenticate(email, password);
     }
+
 }
 
