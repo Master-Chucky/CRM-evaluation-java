@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>unauth-header</title>
+    <style>
+
+        @font-face {
+            font-family: 'Poppins';
+            src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            src: url('/fonts/Poppins-Italic.ttf') format('truetype');
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            width: 100vw;
+            height: 8vh;
+            background-color: red;
+        }
+
+        .content {
+            width: 100vw;
+            height: 92vh;
+            background-color: blue;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">Logo</a>
+    </nav>
+
+    <div class="content" id="content">
+        <div layout:fragment="content"></div>
+    </div>
+
+</body>
+</html>
