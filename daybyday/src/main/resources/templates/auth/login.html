@@ -58,16 +58,29 @@
     <div class="content" layout:fragment="content">
         <main>
             <form class="formulaire" th:action="@{/auth/process-login}" th:object="${loginDTO}" method="post">
+
                 <h3>Connexion</h3>
+
+                <div th:if="${message}" style="color: green; font-weight: bold;">
+                    <p th:text="${message}"></p>
+                </div>
+                
+                <div th:if="${errorMessage}" style="color: red; font-weight: bold;">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+
                 <div class="element">
                     <input type="text" th:field="*{email}" placeholder="email@gmail.com">
                 </div>
+
                 <div class="element">
-                    <input type="password" th:field="*{passe}" placeholder="********">
+                    <input type="password" th:field="*{password}" placeholder="********">
                 </div>
+
                 <div class="element">
                     <button type="submit">connexion</button>
                 </div>
+
             </form>
         </main>
     </div>

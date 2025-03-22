@@ -1,43 +1,51 @@
 package evaluation.project.daybyday.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class AuthService {
     
-    private final RestTemplate restTemplate;
+    private final String LOGIN_API_URL = "http://127.0.0.1:8000/api/login";   
 
-    @Autowired
-    public AuthService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    @SuppressWarnings("deprecation")
+    public String login(String email, String password) throws Exception {
 
-    public String authenticate(String email, String password) {
-        String url = "http://";
-        
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put("email", email);
         requestBody.put("password", password);
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
-        
-        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
-        
-        @SuppressWarnings("rawtypes")
-        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Map.class);
 
-        if (response.getBody() != null && response.getBody().containsKey("token")) {
-            return (String) response.getBody().get("token");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Map<String, String>> entity = new HttpEntity<>(requestBody, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(LOGIN_API_URL, HttpMethod.POST, entity, String.class);
+
+            if (response.getStatusCodeValue() != 200) {
+                throw new Exception("Identifiants incorrects.");
+            }
+
+            return response.getBody();  
+        } catch (HttpClientErrorException e) {
+             
+            throw new Exception(e.getMessage());
+        } catch (Exception e) {
+            
+            throw new Exception(e.getMessage());
         }
-        return null;
     }
+
 }
