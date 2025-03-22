@@ -1,21 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/unauth-header}">
 <head>
-    <title>Liste des Ventes</title>
+    <title>Login</title>
+    <style>
+
+        main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            width: 400px;
+            height: auto;
+            text-align: center;
+            border: 2px solid #346ab1;
+            border-radius: 4px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        h2 {
+            color: #21579e;
+        }
+
+        .element input, .element button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            outline: none;
+            border: 2px solid #346ab1;
+        }
+
+        .element button {
+            background-color: #346ab1;
+            color: white;
+        }
+
+    </style>
 </head>
 <body>
-    <div layout:fragment="content">
-        <form class="formulaire" th:action="@{/auth/process-login}" th:object="${loginDTO}" method="post">
-            <div class="element">
-                <input type="text" th:field="*{email}" placeholder="email@gmail.com">
-            </div>
-            <div class="element">
-                <input type="text" th:field="*{passe}" placeholder="********">
-            </div>
-            <div class="element">
-                <button type="submit">rechercher</button>
-            </div>
-        </form>
+    <div class="content" layout:fragment="content">
+        <main>
+            <form class="formulaire" th:action="@{/auth/process-login}" th:object="${loginDTO}" method="post">
+                <h2>Connexion</h2>
+                <div class="element">
+                    <input type="text" th:field="*{email}" placeholder="email@gmail.com">
+                </div>
+                <div class="element">
+                    <input type="password" th:field="*{passe}" placeholder="********">
+                </div>
+                <div class="element">
+                    <button type="submit">connexion</button>
+                </div>
+            </form>
+        </main>
     </div>
 </body>
 </html>
