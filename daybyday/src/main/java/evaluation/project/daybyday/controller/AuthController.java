@@ -1,23 +1,22 @@
 package evaluation.project.daybyday.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
+import evaluation.project.daybyday.dto.LoginDTO;
 import evaluation.project.daybyday.service.AuthService;
 
-@RestController
+@Controller
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthService authService;
+    @Autowired
+    private AuthService authService;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
-
-    @RequestMapping("/process-login")
-    public String processLogin(String email, String password) {
-        return authService.authenticate(email, password);
+    @PostMapping("/process-login")
+    public String processLogin(@ModelAttribute("loginDTO") LoginDTO data) {
+        return authService.authenticate(data.getEmail(), data.getPasse());
     }
 
 }

@@ -5,14 +5,12 @@
 </head>
 <body>
     <div layout:fragment="content">
-        <form class="formulaire" th:action="@{/clients/search}" th:object="${searchData}" method="post">
+        <form class="formulaire" th:action="@{/auth/process-login}" th:object="${loginDTO}" method="post">
             <div class="element">
-                <label for="startDate">Start :</label>
-                <input type="date" th:field="*{startDate}">
+                <input type="text" th:field="*{email}" placeholder="email@gmail.com">
             </div>
             <div class="element">
-                <label for="endDate">End :</label>
-                <input type="date" th:field="*{endDate}">
+                <input type="text" th:field="*{passe}" placeholder="********">
             </div>
             <div class="element">
                 <button type="submit">rechercher</button>
