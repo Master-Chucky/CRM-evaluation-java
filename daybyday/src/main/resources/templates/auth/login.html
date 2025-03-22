@@ -16,7 +16,7 @@
             width: 400px;
             height: auto;
             text-align: center;
-            border: 2px solid #346ab1;
+            border: 1px solid lightgrey;
             border-radius: 4px;
             padding: 20px;
             display: flex;
@@ -24,7 +24,7 @@
             gap: 10px;
         }
 
-        h2 {
+        h3 {
             color: #21579e;
         }
 
@@ -34,12 +34,22 @@
             margin: 5px 0;
             border-radius: 4px;
             outline: none;
-            border: 2px solid #346ab1;
+            border: 1px solid lightgrey;
         }
 
         .element button {
-            background-color: #346ab1;
+            background-color: #104283;
+            border: 1px solid #104283;
+            font-weight: bold;
             color: white;
+            transition: all 0.3s ease;
+        }
+
+        .element button:hover {
+            background-color: #1f66d8;
+            border-color: #1f66d8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1.01);
         }
 
     </style>
@@ -48,7 +58,7 @@
     <div class="content" layout:fragment="content">
         <main>
             <form class="formulaire" th:action="@{/auth/process-login}" th:object="${loginDTO}" method="post">
-                <h2>Connexion</h2>
+                <h3>Connexion</h3>
                 <div class="element">
                     <input type="text" th:field="*{email}" placeholder="email@gmail.com">
                 </div>
