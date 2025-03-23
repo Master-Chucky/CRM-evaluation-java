@@ -43,7 +43,6 @@ public class AuthService {
              
             throw new Exception(e.getMessage());
         } catch (Exception e) {
-            
             throw new Exception(e.getMessage());
         }
     }
