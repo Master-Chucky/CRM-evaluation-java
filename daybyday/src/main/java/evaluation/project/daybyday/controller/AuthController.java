@@ -21,7 +21,7 @@ public class AuthController {
         try {
             String token = authService.login(data.getEmail(), data.getPassword());
             if (token != null) {
-                return "redirect:/dashboard/index";
+                return "redirect:/dashboard";
             }
         }
         catch (Exception e) {

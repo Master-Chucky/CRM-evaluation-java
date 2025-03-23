@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/auth-header}">
+<head>
+    <title>Dashboard</title>
+    <style>
+
+        main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            width: 240px;
+            height: 100px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 5px;
+            text-align: center;
+            border: 1px solid lightgrey;
+        }
+
+        .card h4 {
+            margin: 10px 0;
+            color: #21579e;
+        }
+
+        .card p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .card .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="content" layout:fragment="content">
+        <main>
+
+            <div class="card" th:if="${nbClients != null}">
+                <h4>Clients</h4>
+                <p th:text="${nbClients}">0</p>
+            </div>
+
+            <div class="card" th:if="${nbProjects != null}">
+                <h4>Projects</h4>
+                <p th:text="${nbProjects}">0</p>
+            </div>
+
+            <div class="card" th:if="${nbTasks != null}">
+                <h4>Tasks</h4>
+                <p th:text="${nbTasks}">0</p>
+            </div>
+
+            <div class="card" th:if="${nbOffers != null}">
+                <h4>Offers</h4>
+                <p th:text="${nbOffers}">0</p>
+            </div>
+
+            <div class="card" th:if="${nbInvoices != null}">
+                <h4>Invoices</h4>
+                <p th:text="${nbInvoices}">0</p>
+            </div>
+
+            <div class="card" th:if="${nbPayments != null}">
+                <h4>Payments</h4>
+                <p th:text="${nbPayments}">0</p>
+            </div>
+
+            <div class="card" th:if="${nbInvoiceLines != null}">
+                <h4>Invoice Lines</h4>
+                <p th:text="${nbInvoiceLines}">0</p>
+            </div>
+
+            <div class="card" th:if="${erreur != null}">
+                <h4>Error</h4>
+                <p class="error" th:text="${erreur}"></p>
+            </div>
+
+        </main>
+    </div>
+</body>
+</html>
