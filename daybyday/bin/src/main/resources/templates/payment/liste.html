@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/auth-header}">
+
+<head>
+    <title>Payment</title>
+    <style>
+
+        main {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        table {
+            width: 100%;
+            max-height: 90%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+            border: 1px solid #ddd;
+            width: calc(100%/4);
+            height: 62px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        td {
+            padding-left: 10px;
+        }
+
+        td-action {
+
+        }
+
+        .status-1 { background-color: #4caf50; color: white; padding: 5px 10px; border-radius: 5px; }
+        .status-2 { background-color: #ff9800; color: white; padding: 5px 10px; border-radius: 5px; }
+        .status-3 { background-color: #f44336; color: white; padding: 5px 10px; border-radius: 5px; }
+        .status-4 { background-color: #2196f3; color: white; padding: 5px 10px; border-radius: 5px; }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .pagination a {
+            margin: 0 10px;
+            padding: 5px 30px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: #333;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+        h4 {
+            font-size: 30px;
+            text-decoration: underline;
+            color: #104283;
+            margin-bottom: 10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="content" layout:fragment="content">
+        <main>
+
+            <h4>Payment</h4>
+
+            <!-- Tableau des tâches -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Payment source</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="payment : ${data}">
+                        <td class="td-titre" th:text="${payment.amount}"></td>
+                        <td class="td-client" th:text="${payment.description}"></td>
+                        <td class="td-deadline" th:text="${payment.paymentSource}"></td>
+                        <td class="td-action">
+                            <Button>
+                                
+                            </Button>
+                            <a class="action-btn" href="#">
+                                <img src="icons/modifier.png">
+                            </a>
+                            <a class="action-btn" href="#">
+                                <img src="icons/supprimer.png">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <div class="pagination">
+                <a th:href="@{${'/payment?page=' + prevPage}}" th:if="${prevPage != null}">prev</a>
+                <span th:text="${currentPage}"></span>
+                <a th:href="@{${'/payment?page=' + nextPage}}" th:if="${nextPage != null}">next</a>
+            </div>         
+            
+        </main>
+    </div>
+</body>
+</html>
