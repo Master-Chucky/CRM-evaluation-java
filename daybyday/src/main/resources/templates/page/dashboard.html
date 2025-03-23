@@ -67,7 +67,7 @@
             </div>
 
             <div class="card" th:if="${nbOffers != null}">
-                <h4>Offers</h4>
+                <h4>Offers <a th:href="@{/offer}">-></a></h4>
                 <p th:text="${nbOffers}">0</p>
             </div>
 
