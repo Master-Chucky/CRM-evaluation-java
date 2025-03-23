@@ -16,8 +16,7 @@
         }
 
         .card {
-            width: 240px;
-            height: 100px;
+            width: 295px;
             background-color: #f8f9fa;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -32,8 +31,13 @@
         }
 
         .card p {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
+        }
+
+        .card a {
+            font-weight: bold;
+            text-decoration: none;color: #21579e;
         }
 
         .card .error {
@@ -50,6 +54,7 @@
             <div class="card" th:if="${nbClients != null}">
                 <h4>Clients</h4>
                 <p th:text="${nbClients}">0</p>
+                <a th:href="@{/task}"></a>
             </div>
 
             <div class="card" th:if="${nbProjects != null}">
@@ -58,7 +63,7 @@
             </div>
 
             <div class="card" th:if="${nbTasks != null}">
-                <h4>Tasks</h4>
+                <h4>Tasks <a th:href="@{/task}">-></a></h4>
                 <p th:text="${nbTasks}">0</p>
             </div>
 
@@ -75,11 +80,6 @@
             <div class="card" th:if="${nbPayments != null}">
                 <h4>Payments</h4>
                 <p th:text="${nbPayments}">0</p>
-            </div>
-
-            <div class="card" th:if="${nbInvoiceLines != null}">
-                <h4>Invoice Lines</h4>
-                <p th:text="${nbInvoiceLines}">0</p>
             </div>
 
             <div class="card" th:if="${erreur != null}">

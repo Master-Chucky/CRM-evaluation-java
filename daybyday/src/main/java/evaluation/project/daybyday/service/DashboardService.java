@@ -19,6 +19,12 @@ public class DashboardService {
     @Value("${api.base.url}")
     private String apiBaseUrl;   
 
+    private final RestTemplate restTemplate;
+
+    public DashboardService(RestTemplate restTemplate) {
+        this.restTemplate = new RestTemplate();
+    }
+
     public DashboardResponse getDashboardData() throws Exception {
         // Appel à l'API pour récupérer les projets par statut
         Map<String, Integer> projectStatusCount = getProjectCountByStatus();
@@ -43,8 +49,6 @@ public class DashboardService {
     @SuppressWarnings("deprecation")
     private int getEntityCount(String endpoint) throws Exception {
         String url = apiBaseUrl + "/" + endpoint;
-
-        RestTemplate restTemplate = new RestTemplate();
         
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -73,7 +77,6 @@ public class DashboardService {
     @SuppressWarnings({ "unchecked", "deprecation" })
     public Map<String, Integer> getProjectCountByStatus() throws Exception {
         String url = apiBaseUrl + "/project/chart";
-        RestTemplate restTemplate = new RestTemplate();
         
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -102,8 +105,6 @@ public class DashboardService {
     public Map<String, Integer> getMonthlyRevenueChart() throws Exception {
          
         String url = apiBaseUrl + "/payment/chart"; 
-        
-        RestTemplate restTemplate = new RestTemplate();
         
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
