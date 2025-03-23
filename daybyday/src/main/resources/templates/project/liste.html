@@ -4,7 +4,7 @@
       layout:decorate="~{layout/auth-header}">
 
 <head>
-    <title>Task</title>
+    <title>Project</title>
     <style>
 
         main {
@@ -78,7 +78,7 @@
     <div class="content" layout:fragment="content">
         <main>
 
-            <h4>Task</h4>
+            <h4>Project</h4>
 
             <!-- Tableau des tâches -->
             <table>
@@ -87,23 +87,21 @@
                         <th>Titre</th>
                         <th>Client ID</th>
                         <th>Date Limite</th>
-                        <!-- <th>Actions</th> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="task : ${data}">
-                        <td class="td-titre" th:text="${task.title}"></td>
-                        <td class="td-client" th:text="${task.clientId}"></td>
-                        <td class="td-deadline" th:text="${task.deadline}"></td>
-                        <!-- <td class="td-action"></td> -->
+                    <tr th:each="project : ${data}">
+                        <td class="td-titre" th:text="${project.title}"></td>
+                        <td class="td-client" th:text="${project.clientId}"></td>
+                        <td class="td-deadline" th:text="${project.deadline}"></td>
                     </tr>
                 </tbody>
             </table>
     
             <div class="pagination">
-                <a th:href="@{${'/task?page=' + prevPage}}" th:if="${prevPage != null}">prev</a>
+                <a th:href="@{${'/project?page=' + prevPage}}" th:if="${prevPage != null}">prev</a>
                 <span th:text="${currentPage}"></span>
-                <a th:href="@{${'/task?page=' + nextPage}}" th:if="${nextPage != null}">next</a>
+                <a th:href="@{${'/project?page=' + nextPage}}" th:if="${nextPage != null}">next</a>
             </div>         
             
         </main>

@@ -1,8 +1,5 @@
 package evaluation.project.daybyday.controller;
 
-import evaluation.project.daybyday.service.TaskService;
-import evaluation.project.daybyday.util.TaskResponseDTO;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,22 +7,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
-@RequestMapping("/task")
-public class TaskController {
+import evaluation.project.daybyday.service.ProjectService;
+import evaluation.project.daybyday.util.ProjectResponseDTO;
 
-    private final TaskService taskService;
+@Controller
+@RequestMapping("/project")
+public class ProjectController {
+    
+    private final ProjectService projectService;
 
     @Autowired
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
     }
 
     @GetMapping
-    public String getTasks(@RequestParam(defaultValue = "1") int page, Model model) {
-        TaskResponseDTO response = taskService.getTasks(page);
+    public String getProjects(@RequestParam(defaultValue = "1") int page, Model model) {
+        ProjectResponseDTO response = projectService.getProjects(page);
 
-        model.addAttribute("data", response.getData());
+        model.addAttribute("data", response.getData());  
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", response.getLastPage());
         model.addAttribute("totalTasks", response.getTotal());
@@ -34,4 +34,5 @@ public class TaskController {
 
         return "task/liste";
     }
+
 }
