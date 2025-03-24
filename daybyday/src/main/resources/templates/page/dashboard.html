@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/auth-header}">
+<head>
+    <title>Dashboard</title>
+    <script src="/js/chart.js"></script>
+    <style>
+
+        main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .cards-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .card {
+            width: 295px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 5px;
+            text-align: center;
+        }
+
+        .card h4 {
+            margin: 10px 0;
+            color: #21579e;
+        }
+
+        .card p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card a {
+            font-weight: bold;
+            text-decoration: none;color: #21579e;
+        }
+
+        .card .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-box {
+            width: 30%;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .chart-box canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="content" layout:fragment="content">
+        <main>
+
+            <div class="cards-container">
+
+                <div class="card" th:if="${nbClients != null}">
+                    <h4>Clients <a th:href="@{/client}">-></a></h4>
+                    <p th:text="${nbClients}">0</p>
+                </div>
+    
+                <div class="card" th:if="${nbProjects != null}">
+                    <h4>Projects <a th:href="@{/project}">-></a></h4>
+                    <p th:text="${nbProjects}">0</p>
+                </div>
+    
+                <div class="card" th:if="${nbTasks != null}">
+                    <h4>Tasks <a th:href="@{/task}">-></a></h4>
+                    <p th:text="${nbTasks}">0</p>
+                </div>
+    
+                <div class="card" th:if="${nbOffers != null}">
+                    <h4>Offers <a th:href="@{/offer}">-></a></h4>
+                    <p th:text="${nbOffers}">0</p>
+                </div>
+    
+                <div class="card" th:if="${nbInvoices != null}">
+                    <h4>Invoices <a th:href="@{/invoice}">-></a></h4>
+                    <p th:text="${nbInvoices}">0</p>
+                </div>
+    
+                <div class="card" th:if="${nbPayments != null}">
+                    <h4>Payments <a th:href="@{/payment}">-></a></h4>
+                    <p th:text="${nbPayments}">0</p>
+                </div>
+    
+                <div class="card" th:if="${erreur != null}">
+                    <h4>Error</h4>
+                    <p class="error" th:text="${erreur}"></p>
+                </div>
+
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-box">
+                    <h4>Statut des projets</h4>
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h4>Statut des payment</h4>
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h4>Évolution des paiements</h4>
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+
+            <script th:inline="javascript">
+                var projectChartData = [[${projectChartData}]];
+                var invoiceChartData = [[${invoiceChartData}]];
+                var paymentChartData = [[${paymentChartData}]];
+            </script>            
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var barCtx1 = document.getElementById('barChart').getContext('2d');
+                    var pieCtx = document.getElementById('pieChart').getContext('2d');
+                    var lineCtx = document.getElementById('lineChart').getContext('2d');
+
+                    // Graphique en barres 1 (Projects Status)
+                    new Chart(barCtx1, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Open', 'In-progress', 'Blocked', 'Cancelled', 'Completed'],
+                            datasets: [{
+                                label: 'Projects Status',
+                                data: [
+                                    projectChartData["Open"] || 0,  // Vérifier que les clés correspondent
+                                    projectChartData["In-progress"] || 0,
+                                    projectChartData["Blocked"] || 0,
+                                    projectChartData["Cancelled"] || 0,
+                                    projectChartData["Completed"] || 0
+                                ],
+                                backgroundColor: [
+                                    'rgba(54, 162, 235, 0.5)',
+                                    'rgba(255, 206, 86, 0.5)',
+                                    'rgba(255, 99, 132, 0.5)',
+                                    'rgba(75, 192, 192, 0.5)',
+                                    'rgba(153, 102, 255, 0.5)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: { responsive: true, scales: { y: { beginAtZero: true } } }
+                    });
+
+                    // Graphique en secteurs (Pie)
+                    new Chart(pieCtx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['total_paid', 'total_unpaid'],
+                            datasets: [{
+                                label: 'Payments Status',
+                                data: [
+                                    invoiceChartData["total_paid"] || 0,
+                                    invoiceChartData["total_unpaid"] || 0,
+                                ],
+                                backgroundColor: ['rgba(255, 205, 86, 0.7)', 'rgba(75, 192, 192, 0.7)']
+                            }]
+                        },
+                        options: { responsive: true }
+                    });
+
+                    // Graphique en ligne (évolution des paiements)
+                    new Chart(lineCtx, {
+                        type: 'line',
+                        data: {
+                            labels: Object.keys(paymentChartData),
+                            datasets: [{
+                                label: 'Montant des paiements',
+                                data: Object.values(paymentChartData).map(v => parseInt(v) || 0),
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderWidth: 2,
+                                fill: true
+                            }]
+                        },
+                        options: { responsive: true, scales: { y: { beginAtZero: true } } }
+                    });
+
+                });
+            </script>
+
+        </main>
+    </div>
+
+</body>
+</html>

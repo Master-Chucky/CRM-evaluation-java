@@ -21,19 +21,15 @@ public class AuthController {
         try {
             String token = authService.login(data.getEmail(), data.getPassword());
             if (token != null) {
-                model.addAttribute("message", "Connexion réussie !");
-                model.addAttribute("loginDTO", loginDTO);
-                return "auth/login";
-            } else {
-                model.addAttribute("errorMessage", "Identifiants incorrects.");
-                model.addAttribute("loginDTO", loginDTO);
-                return "auth/login";
+                return "redirect:/dashboard";
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        model.addAttribute("errorMessage", "Identifiants incorrects.");
+        model.addAttribute("loginDTO", loginDTO);
+        return "auth/login";
     }
 
 }
