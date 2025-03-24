@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import evaluation.project.daybyday.dto.InvoiceChartDTO;
 import evaluation.project.daybyday.dto.ProjectChartDTO;
 
 @Service
@@ -26,6 +27,15 @@ public class ChartService {
                                        .path("/project/chart")
                                        .toUriString();
         ResponseEntity<ProjectChartDTO> response = restTemplate.getForEntity(url, ProjectChartDTO.class);
+        return response.getBody();
+    }
+
+    public InvoiceChartDTO getInvoiceChartData() {
+        @SuppressWarnings("deprecation")
+        String url = UriComponentsBuilder.fromHttpUrl(apiBaseUrl)
+                                       .path("/invoice/chart")
+                                       .toUriString();
+        ResponseEntity<InvoiceChartDTO> response = restTemplate.getForEntity(url, InvoiceChartDTO.class);
         return response.getBody();
     }
 

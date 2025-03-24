@@ -33,7 +33,9 @@ public class DashboardController {
             model.addAttribute("nbPayments", dashboardResponse.getNbPayments());
             model.addAttribute("nbInvoiceLines", dashboardResponse.getNbInvoiceLines());
             model.addAttribute("projectChartData", chartService.getProjectChartData());
+            model.addAttribute("invoiceChartData", chartService.getInvoiceChartData());
             System.out.println(model.getAttribute("projectChartData"));
+            System.out.println(model.getAttribute("invoiceChartData"));
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("erreur", "Erreur lors de la récupération des données du tableau de bord.");
