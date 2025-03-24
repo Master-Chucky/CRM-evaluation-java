@@ -46,6 +46,7 @@ public class ChartService {
         String url = UriComponentsBuilder.fromHttpUrl(apiBaseUrl)
                                          .path("/payment/chart")
                                          .toUriString();
+        @SuppressWarnings("unchecked")
         ResponseEntity<Map<String, Integer>> response = restTemplate.getForEntity(url, (Class<Map<String, Integer>>) (Class<?>) Map.class);
         return response.getBody();
     }
