@@ -25,7 +25,7 @@
             padding: 5px;
             text-align: left;
             border: 1px solid #ddd;
-            width: calc(100%/4);
+            width: calc(92%/3);
             height: 62px;
         }
 
@@ -36,10 +36,6 @@
 
         td {
             padding-left: 10px;
-        }
-
-        td-action {
-
         }
 
         .status-1 { background-color: #4caf50; color: white; padding: 5px 10px; border-radius: 5px; }
@@ -74,6 +70,29 @@
             margin-bottom: 10px;
         }
 
+        .td-action {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .action-button {
+            width: 18px;
+            height: 18px;
+            overflow: hidden;
+            border: none;
+            background-color: transparent;
+        }
+
+        .action-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0) invert(14%) sepia(50%) saturate(1000%) hue-rotate(190deg) brightness(90%) contrast(100%);
+        }
+
     </style>
 
 </head>
@@ -100,15 +119,16 @@
                         <td class="td-client" th:text="${payment.description}"></td>
                         <td class="td-deadline" th:text="${payment.paymentSource}"></td>
                         <td class="td-action">
-                            <Button>
-                                
+                            <Button class="action-button">
+                                <a href="#">
+                                    <img src="icons/modifier.png" class="action-img">
+                                </a>
                             </Button>
-                            <a class="action-btn" href="#">
-                                <img src="icons/modifier.png">
-                            </a>
-                            <a class="action-btn" href="#">
-                                <img src="icons/supprimer.png">
-                            </a>
+                            <Button class="action-button">
+                                <a href="#">
+                                    <img src="icons/supprimer.png" class="action-img">
+                                </a>
+                            </Button>
                         </td>
                     </tr>
                 </tbody>

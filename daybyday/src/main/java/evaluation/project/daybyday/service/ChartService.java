@@ -1,5 +1,7 @@
 package evaluation.project.daybyday.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,5 +40,15 @@ public class ChartService {
         ResponseEntity<InvoiceChartDTO> response = restTemplate.getForEntity(url, InvoiceChartDTO.class);
         return response.getBody();
     }
+
+    public Map<String, Integer> getPaymentChartData() {
+        @SuppressWarnings("deprecation")
+        String url = UriComponentsBuilder.fromHttpUrl(apiBaseUrl)
+                                         .path("/payment/chart")
+                                         .toUriString();
+        ResponseEntity<Map<String, Integer>> response = restTemplate.getForEntity(url, (Class<Map<String, Integer>>) (Class<?>) Map.class);
+        return response.getBody();
+    }
+    
 
 }

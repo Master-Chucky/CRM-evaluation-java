@@ -126,29 +126,30 @@
 
             <div class="chart-container">
                 <div class="chart-box">
-                    <h4>Graphique en Barres</h4>
+                    <h4>Statut des projets</h4>
                     <canvas id="barChart"></canvas>
                 </div>
                 <div class="chart-box">
-                    <h4>Graphique en Secteurs</h4>
+                    <h4>Statut des payment</h4>
                     <canvas id="pieChart"></canvas>
                 </div>
                 <div class="chart-box">
-                    <h4>Graphique en Lignes</h4>
-                    <canvas id="barChart2"></canvas>
+                    <h4>Évolution des paiements</h4>
+                    <canvas id="lineChart"></canvas>
                 </div>
             </div>
 
             <script th:inline="javascript">
                 var projectChartData = [[${projectChartData}]];
                 var invoiceChartData = [[${invoiceChartData}]];
+                var paymentChartData = [[${paymentChartData}]];
             </script>            
 
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     var barCtx1 = document.getElementById('barChart').getContext('2d');
-                    var pieCtx = document.getElementById('pieChart').getContext('2d'); // Définition manquante
-                    var barCtx2 = document.getElementById('barChart2').getContext('2d'); // Correction de l'ID
+                    var pieCtx = document.getElementById('pieChart').getContext('2d');
+                    var lineCtx = document.getElementById('lineChart').getContext('2d');
 
                     // Graphique en barres 1 (Projects Status)
                     new Chart(barCtx1, {
@@ -181,33 +182,36 @@
                     new Chart(pieCtx, {
                         type: 'pie',
                         data: {
-                            labels: ['Produit A', 'Produit B', 'Produit C'],
+                            labels: ['total_paid', 'total_unpaid'],
                             datasets: [{
-                                data: [30, 50, 20],
-                                backgroundColor: ['rgba(255, 205, 86, 0.7)', 'rgba(75, 192, 192, 0.7)', 'rgba(153, 102, 255, 0.7)']
+                                label: 'Payments Status',
+                                data: [
+                                    invoiceChartData["total_paid"] || 0,
+                                    invoiceChartData["total_unpaid"] || 0,
+                                ],
+                                backgroundColor: ['rgba(255, 205, 86, 0.7)', 'rgba(75, 192, 192, 0.7)']
                             }]
                         },
                         options: { responsive: true }
                     });
 
-                    // Graphique en barres 2 (Invoices Status)
-                    new Chart(barCtx2, {
-                        type: 'bar',
+                    // Graphique en ligne (évolution des paiements)
+                    new Chart(lineCtx, {
+                        type: 'line',
                         data: {
-                            labels: ['total_paid', 'total_unpaid'],
+                            labels: Object.keys(paymentChartData),
                             datasets: [{
-                                label: 'Invoices Status',
-                                data: [
-                                    invoiceChartData["total_paid"] || 0,
-                                    invoiceChartData["total_unpaid"] || 0,
-                                ],
-                                backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)'],
-                                borderWidth: 1
+                                label: 'Montant des paiements',
+                                data: Object.values(paymentChartData).map(v => parseInt(v) || 0),
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderWidth: 2,
+                                fill: true
                             }]
                         },
                         options: { responsive: true, scales: { y: { beginAtZero: true } } }
                     });
-            
+
                 });
             </script>
 
